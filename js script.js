@@ -1,0 +1,137 @@
+document.addEventListener('DOMContentLoaded', () => {
+    
+    /* ==========================================================================
+       MOBILE MENU TOGGLE (రెస్పాన్సివ్ మొబైల్ మెనూ)
+       ========================================================================== */
+    const mobileMenu = document.getElementById('mobile-menu');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (mobileMenu && navLinks) {
+        mobileMenu.addEventListener('click', (e) => {
+            e.stopPropagation(); // క్లిక్ ఈవెంట్ వేరే వాటికి వెళ్లకుండా ఆపుతుంది
+            mobileMenu.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // మెనూ ఓపెన్ లో ఉన్నప్పుడు స్క్రీన్ మీద ఎక్కడ క్లిక్ చేసినా మెనూ క్లోజ్ అవ్వడానికి
+        document.addEventListener('click', (e) => {
+            if (!mobileMenu.contains(e.target) && !navLinks.contains(e.target)) {
+                mobileMenu.classList.remove('active');
+                navLinks.classList.remove('active');
+            }
+        });
+    }
+
+    /* ==========================================================================
+       PORTFOLIO GRID FILTER SYSTEM
+       ========================================================================== */
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const projectCards = document.querySelectorAll('.project-card');
+
+    if(filterButtons.length > 0) {
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filterValue = btn.getAttribute('data-filter');
+
+                projectCards.forEach(card => {
+                    if(filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                        card.classList.add('show');
+                    } else {
+                        card.classList.remove('show');
+                    }
+                });
+            });
+        });
+    }
+
+    /* ==========================================================================
+       LIGHTBOX PREVIEW DIALOG SYSTEM (ఇమేజ్ సపోర్ట్‌తో)
+       ========================================================================== */
+    const lightbox = document.getElementById('portfolioLightbox');
+    const lightboxTitle = document.getElementById('lightboxTitle');
+    const lightboxDesc = document.getElementById('lightboxDesc');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const closeLightbox = document.getElementById('lightboxClose');
+    const detailButtons = document.querySelectorAll('.view-details-btn');
+
+    if(detailButtons.length > 0 && lightbox) {
+        detailButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const title = this.getAttribute('data-title');
+                const desc = this.getAttribute('data-desc');
+                
+                if (lightboxTitle) lightboxTitle.innerText = title;
+                if (lightboxDesc) lightboxDesc.innerText = desc;
+                
+                // ఇమేజ్ ప్రివ్యూ లాజిక్
+                if (lightboxImg) {
+                    if (this.tagName.toLowerCase() === 'img') {
+                        lightboxImg.src = this.src;
+                        lightboxImg.style.display = 'block';
+                    } else {
+                        const cardImg = this.closest('.project-card')?.querySelector('.project-img-placeholder img');
+                        if (cardImg) {
+                            lightboxImg.src = cardImg.src;
+                            lightboxImg.style.display = 'block';
+                        } else {
+                            lightboxImg.style.display = 'none';
+                        }
+                    }
+                }
+                lightbox.style.display = 'flex';
+            });
+        });
+
+        if (closeLightbox) {
+            closeLightbox.addEventListener('click', () => {
+                lightbox.style.display = 'none';
+            });
+        }
+
+        lightbox.addEventListener('click', (e) => {
+            if(e.target === lightbox) lightbox.style.display = 'none';
+        });
+    }
+
+    /* ==========================================================================
+       CONTACT FORM VALIDATION PIPELINE
+       ========================================================================== */
+    const contactForm = document.getElementById('portfolioForm');
+    if(contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('formName').value.trim();
+            const email = document.getElementById('formEmail').value.trim();
+            
+            if(name === "" || email === "") {
+                alert("Please properly fill out all validation fields.");
+                return;
+            }
+            
+            alert(`Thank you, ${name}! Your portfolio connection message was captured successfully.`);
+            contactForm.reset();
+        });
+    }
+
+    /* ==========================================================================
+       SCROLL TO TOP INTERACTION ENGINE
+       ========================================================================== */
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    if(scrollTopBtn) {
+        window.addEventListener('scroll', () => {
+            if(window.scrollY > 400) {
+                scrollTopBtn.style.style.display = 'flex';
+            } else {
+                scrollTopBtn.style.style.display = 'none';
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+});
