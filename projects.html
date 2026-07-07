@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Gallery | Revathi Ganta</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ==========================================
+            మొబైల్ రెస్పాన్సివ్ నావ్‌బార్ CSS
+        ============================================ */
+        .navbar {
+            background-color: #0b1528; /* మీ థీమ్ కలర్ */
+            padding: 1rem 2rem;
+            position: relative;
+            z-index: 1000;
+        }
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .logo {
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .logo span { color: #00dfa2; }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            margin: 0;
+            padding: 0;
+        }
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover { color: #00dfa2; }
+
+        /* 3 లైన్స్ మెనూ బటన్ (Hamburger) */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+        }
+        .menu-toggle span {
+            width: 30px;
+            height: 3px;
+            background-color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        /* మొబైల్ స్క్రీన్స్ కోసం ప్రత్యేక స్టైల్స్ (Responsive) */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: #0b1528;
+                padding: 2rem;
+                gap: 1.5rem;
+                text-align: center;
+                box-shadow: 0 10px 15px rgba(0,0,0,0.3);
+            }
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-toggle.open span:nth-child(1) {
+                transform: rotate(45deg) translate(6px, 6px);
+            }
+            .menu-toggle.open span:nth-child(2) {
+                opacity: 0;
+            }
+            .menu-toggle.open span:nth-child(3) {
+                transform: rotate(-45deg) translate(6px, -6px);
+            }
+        }
+
+        /* ==========================================
+            గ్యాలరీ కార్డ్ మరియు రెస్పాన్సివ్ CSS (మార్చబడినవి)
+        ============================================ */
+        /* గ్యాలరీ గ్రిడ్ సెటప్ */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        /* ప్రాజెక్ట్ కార్డ్ కంటైనర్ */
+        .project-card { 
+            display: none; 
+            background-color: #111e35;
+            border-radius: 12px;
+            overflow: hidden; /* ఏదీ కార్డ్ దాటి బయటకు రాదు */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .project-card.show { display: block; }
+        .project-card:hover { 
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 223, 162, 0.1);
+        }
+
+        /* ఇమేజ్ ప్లేస్‌హోల్డర్ బాక్స్ */
+        /* ఇమేజ్ ప్లేస్‌హోల్డర్ బాక్స్ */
+.project-img-placeholder {
+    width: 100%;
+    height: 240px; /* డెస్క్‌టాప్ మరియు మొబైల్ కి సరిపోయేలా సమానమైన హైట్ */
+    overflow: hidden;
+    background-color: #fff; /* వైట్ బ్యాక్‌గ్రౌండ్ ఇమేజ్ లీక్ కాకుండా మ్యాచ్ అవుతుంది */
+    position: relative;
+    /* ఇమేజ్ కింద వైట్ కలర్ లీక్ అవ్వకుండా బార్డర్ రేడియస్ */
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+/* ఇమేజ్ రెస్పాన్సివ్ రూల్స్ */
+.project-img-placeholder img {
+    cursor: pointer;
+    display: block;
+    width: 100%;       
+    height: 100%;      
+    object-fit: contain; /* 'cover' నుండి 'contain' కి మార్చబడింది. దీనివల్ల ఇమేజ్ కట్ అవ్వదు */
+    object-position: center;
+    transition: transform 0.3s ease;
+    background-color: #fff; /* ఇమేజ్ చుట్టూ వైట్ గ్యాప్స్ ఉన్నా నీట్‌గా కనిపిస్తుంది */
+}
+        .project-card:hover .project-img-placeholder img { 
+            transform: scale(1.05); 
+        }
+
+        /* కార్డ్ లోపల టెక్స్ట్ ఇన్ఫో */
+        .project-info {
+            padding: 1.5rem;
+        }
+        .project-tools {
+            color: #00dfa2;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+        .project-info h3 {
+            color: #fff;
+            margin: 0.5rem 0;
+            font-size: 1.25rem;
+        }
+        .project-info p {
+            color: #a0aec0;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            /* టెక్స్ట్ మరీ ఎక్కువగా ఉంటే 3 లైన్ల తర్వాత ... వచ్చేలా కంట్రోల్ చేస్తుంది */
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* బటన్ స్టైల్స్ */
+        .btn {
+            background-color: transparent;
+            color: #00dfa2;
+            border: 1px solid #00dfa2;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #00dfa2;
+            color: #0b1528;
+        }
+
+        /* లైట్‌బాక్స్ (Popup) కామన్ స్టైల్స్ */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center; align-items: center; flex-direction: column;
+        }
+        .lightbox.active { display: flex; }
+        .lightbox-content { max-width: 90%; text-align: center; position: relative; }
+        
+        #lightboxImg { max-width: 100%; max-height: 80vh; margin: 0 auto; border-radius: 6px; object-fit: contain; display: block; }
+        
+        /* వ్యూ డీటెయిల్స్ కోసం టెక్స్ట్ పాపప్ బాక్స్ */
+        .text-popup-box {
+            background-color: #111e35;
+            padding: 2.5rem;
+            border-radius: 12px;
+            max-width: 550px;
+            width: 90%;
+            border: 1px solid #00dfa2;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            text-align: left;
+        }
+
+        .lightbox-close { position: absolute; top: -45px; right: 0; color: #fff; font-size: 40px; font-weight: bold; cursor: pointer; user-select: none; }
+        .text-popup-box .lightbox-close { top: 10px; right: 20px; color: #fff; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">Revathi<span>.G</span></a>
+            
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html" id="nav-home">Home</a></li>
+                <li><a href="about.html" id="nav-about">About</a></li>
+                <li><a href="skills.html" id="nav-skills">Skills</a></li>
+                <li><a href="experience.html" id="nav-experience">Experience</a></li>
+                <li><a href="projects.html" id="nav-projects">Projects</a></li>
+                <li><a href="contact.html" id="nav-contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 1rem;">
+        <h2 class="section-title" style="color: #fff; margin-top: 2rem;">Creative <span style="color: #00dfa2;">Portfolio</span></h2>
+
+        <div class="filter-tabs" style="margin-bottom: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.5rem;">
+            <button class="filter-btn active" data-filter="all">All Projects</button>
+            <button class="filter-btn" data-filter="wedding">Photoshop</button>
+            <button class="filter-btn" data-filter="logo">Illustrator</button>
+            <button class="filter-btn" data-filter="branding">InDesign</button>
+            <button class="filter-btn" data-filter="social">Canva</button>
+            <button class="filter-btn" data-filter="print">Corel Draw</button>
+        </div>
+
+        <div class="gallery-grid">
+            <div class="project-card show" data-category="logo">
+                <div class="project-img-placeholder">
+                    <img src="efftronics images/PNG/smart-signaling13.png" alt="Logo Design">
+                </div>
+                <div class="project-info">
+                    <div class="project-tools">Illustrator</div>
+                    <h3 style="color: darkgoldenrod;">Broucher</h3>
+                    <p> Smart Signalling leverages advanced technologies, real-time monitoring, and intelligent analytics to optimize railway operations, improve safety, and enhance asset reliability. It enables efficient train movement while reducing operational delays and maintenance costs.</p>
+                    <button class="btn view-details-btn">View Details</button>
+                </div>
+            </div>
+            <div class="project-card show" data-category="logo">
+                <div class="project-img-placeholder">
+                    <img src="Sign Board images/City car Decors.jpeg" alt="Logo Design">
+                </div>
+                <div class="project-info">
+                    <div class="project-tools">Corel Draw</div>
+                    <h3 style="color: darkgoldenrod;">Sign Board</h3>
+                    <p>City Car Decors is your one-stop destination for premium car accessories, customization, and detailing services. We offer high-quality products and expert installation to enhance your vehicle's style, comfort, and performance.
+                        At City Car Decors, we specialize in transforming your car with the latest accessories, stylish interiors, advanced electronics, and professional detailing. Our commitment to quality and customer satisfaction makes us the preferred choice for car enthusiasts.</p>
+                    <button class="btn view-details-btn">View Details</button>
+                </div>
+            </div>
+            <div class="project-card show" data-category="logo">
+                <div class="project-img-placeholder">
+                    <img src="efftronics images/PNG/smart-signaling31.png" alt="Logo Design">
+                </div>
+                <div class="project-info">
+                    <div class="project-tools">In Design</div>
+                    <h3 style="color: darkgoldenrod;">poster</h3>
+                    <p>Our Fail Safe Signalling System is designed to ensure the highest standards of railway safety and operational reliability. Engineered with advanced LED technology and compliant with railway standards, it delivers dependable performance in all operating conditions.</p>
+                    <button class="btn view-details-btn">View Details</button>
+                </div>
+            </div>
+
+            <div class="project-card show" data-category="wedding">
+                <div class="project-img-placeholder">
+                    <img src="Sign Board images/bobbulu 14''x9''.png" alt="Wedding Project 1">
+                </div>
+                <div class="project-info">
+                    <div class="project-tools">Photoshop</div>
+                    <h3 style="color: darkgoldenrod;">Telugu Wedding Card</h3>
+                    <p>Created a traditional Telugu wedding invitation card in Adobe Photoshop by carefully planning the card dimensions, aligning text content, arranging images and decorative elements, and maintaining proper spacing throughout the design.</p>
+                    <button class="btn view-details-btn">View Details</button>
+                </div>
+            </div>
+
+            <div class="project-card show" data-category="wedding">
+                <div class="project-img-placeholder">
+                    <img src="efftronics images/PNG/18th may id card3.png" alt="Wedding Project 2">
+                </div>
+                <div class="project-info">
+                    <div class="project-tools">Indesign</div>
+                    <h3 style="color: darkgoldenrod;">ID Cards</h3>
+                    <p>This project involved designing a professional employee ID card using Adobe InDesign for organizational identification and access management. The ID card was created to maintain a consistent corporate identity while ensuring clear visibility of employee information.Created a professional healthcare LED sign board design in CorelDRAW by planning the board dimensions, arranging branding elements, aligning text and logo components, and incorporating fabrication specifications.</p>
+                    <button class="btn view-details-btn">View Details</button>
+                </div>
+            </div>
+
+            <div class="project-card show" data-category="logo">
+                <div class="project-img-placeholder">
+                    <img src="efftronics images/PNG/smart-signaling28.png" alt="Logo Design">
+                </div>
+                <div class="project-info">
+                    <div class="project-tools">Canva</div>
+                    <h3 style="color: darkgoldenrod;">Poster</h3>
+                    <p>Our dedicated customer support network ensures prompt assistance, reliable maintenance, and continuous technical support. With a strong nationwide presence, we are committed to delivering exceptional service and maximizing customer satisfaction.Supporting Teams
+
+Our specialized support teams provide installation assistance, preventive maintenance, technical troubleshooting, and product validation to ensure seamless operations.</p>
+                    <button class="btn view-details-btn">View Details</button>
+                </div>
+            </div>
+
+            <div class="project-card show" data-category="branding">
+                <div class="project-img-placeholder">
+                    <img src="efftronics images/PNG/smart-signaling15.png" alt="Branding Kit">
+                </div>
+                <div class="project-info">
+                    <div class="project-tools">Illustrator</div>
+                    <h3 style="color: darkgoldenrod;">Broucher</h3>
+                    <p>Created a professional corporate brochure in Adobe InDesign featuring structured layouts, infographics, company information, and brand visuals. Focused on typography, content organization, visual hierarchy, and print-ready formatting to deliver an informative and visually appealing marketing document.</p>
+                    <button class="btn view-details-btn">View Details</button>
+                </div>
+            </div>
+
+            <div class="project-card show" data-category="social">
+                <div class="project-img-placeholder">
+                    <img src="Sign Board images/Andhra HomeFood2.jpeg" alt="Social Media Post">
+                </div>
+                <div class="project-info">
+                    <div class="project-tools">Corel Draw</div>
+                    <h3 style="color: darkgoldenrod;">Sign Board</h3>
+                    <p> Andhra Home Foods brings you the authentic taste of traditional Andhra cuisine. We prepare every product with premium ingredients, homemade recipes, and hygienic practices to deliver freshness, quality, and rich flavors in every bite.</p>
+                    <button class="btn view-details-btn">View Details</button>
+                </div>
+            </div>
+            <div class="project-card show" data-category="social">
+                <div class="project-img-placeholder">
+                    <img src="efftronics images/PNG/smart-signaling33.png" alt="Social Media Post">
+                </div>
+                <div class="project-info">
+                    <div class="project-tools">In Design</div>
+                    <h3 style="color: darkgoldenrod;">Poster</h3>
+                    <p> The Passenger Information System provides real-time train information through LED display boards, audio announcements, and digital displays. It enhances the passenger experience by delivering accurate, timely, and synchronized travel information across railway stations.</p>
+                    <button class="btn view-details-btn">View Details</button>
+                </div>
+            </div>
+            <div class="project-card show" data-category="social">
+                <div class="project-img-placeholder">
+                    <img src="Sign Board images/9 Mobiles.jpeg" alt="Social Media Post">
+                </div>
+                <div class="project-info">
+                    <div class="project-tools">Corel Draw</div>
+                    <h3 style="color: darkgoldenrod;">Sign Board</h3>
+                    <p> Latest Smartphones
+                        Mobile Repair & Service
+                        Genuine Accessories
+                        Screen Replacement
+                        Software Updates
+                        Battery Replacement
+                        Mobile Covers & Cases
+                        Chargers & Earphones.</p>
+                    <button class="btn view-details-btn">View Details</button>
+                </div>
+            </div>
+            <div class="project-card show" data-category="social">
+                <div class="project-img-placeholder">
+                    <img src="efftronics images/PNG/atcs2.png" alt="Social Media Post">
+                </div>
+                <div class="project-info">
+                    <div class="project-tools">In Design</div>
+                    <h3 style="color: darkgoldenrod;">Poster</h3>
+                    <p>  Real-Time Traffic Monitoring
+                        Intelligent Signal Optimization
+                        Centralized Command & Control
+                        Live Junction Monitoring
+                        Junction Configuration & Management
+                        Performance Analytics & KPI Reports
+                        Remote Diagnostics & Maintenance
+                        Scalable and Smart City Ready</p>
+                    <button class="btn view-details-btn">View Details</button>
+                </div>
+            </div>
+            <div class="project-card show" data-category="social">
+                <div class="project-img-placeholder">
+                    <img src="Sign Board images/Amoha.jpeg" alt="Sign Board">
+                </div>
+                <div class="project-info">
+                    <div class="project-tools">Corel DRAW</div>
+                    <h3 style="color: darkgoldenrod;">Sign Board</h3>
+                    <p>Amohaa Women's Wear is your one-stop destination for stylish and elegant fashion. Explore a wide collection of ethnic, western, and casual wear designed to suit every occasion with quality, comfort, and affordability.</p>
+                    <button class="btn view-details-btn">View Details</button>
+                </div>
+            </div>
+            <div class="project-card show" data-category="social">
+                <div class="project-img-placeholder">
+                    <img src="efftronics images/PNG/smart-signaling7.png" alt="Social Media Post">
+                </div>
+                <div class="project-info">
+                    <div class="project-tools">Illustrator</div>
+                    <h3 style="color: darkgoldenrod;">Broucher</h3>
+                    <p> 12,000+ Product Deployments
+
+Successfully delivering innovative solutions across thousands of installations, ensuring reliable performance and customer satisfaction.
+
+9,000+ Locations
+
+A widespread presence across India and neighboring countries, serving industries with trusted technology solutions.
+
+120+ Service Centers
+
+An extensive service network providing prompt technical support, maintenance, and customer assistance nationwide.</p>
+                    <button class="btn view-details-btn">View Details</button>
+                </div>
+            </div>
+            <div class="project-card show" data-category="social">
+                <div class="project-img-placeholder">
+                    <img src="Sign Board images/Anantha2.jpeg" alt="Social Media Post">
+                </div>
+                <div class="project-info">
+                    <div class="project-tools">Corel DRAW</div>
+                    <h3 style="color: darkgoldenrod;">Sign Board</h3>
+                    <p> At Anantha Jewellers, we combine tradition with modern elegance to bring you a stunning collection of jewellery. Our commitment to quality, purity, and customer satisfaction makes us your trusted jewellery partner.</p>
+                    <button class="btn view-details-btn">View Details</button>
+                </div>
+            </div>
+            <div class="project-card show" data-category="social">
+                <div class="project-img-placeholder">
+                    <img src="efftronics images/PNG/3rd smart city.png" alt="Social Media Post">
+                </div>
+                <div class="project-info">
+                    <div class="project-tools">In Design</div>
+                    <h3 style="color: darkgoldenrod;">Expo Poster</h3>
+                    <p> 
+                        Smart City Solutions
+                        Intelligent Traffic Management
+                        Industrial Automation
+                        IoT & AI-Based Solutions
+                        Security & Surveillance Systems
+                        Enterprise Software Solutions
+                        Smart Signalling Technologies</p>
+                    <button class="btn view-details-btn">View Details</button>
+                </div>
+            </div>
+            <div class="project-card show" data-category="social">
+                <div class="project-img-placeholder">
+                    <img src="Sign Board images/Abhiruchi.jpeg" alt="Social Media Post">
+                </div>
+                <div class="project-info">
+                    <div class="project-tools">CorelDRAW</div>
+                    <h3 style="color: darkgoldenrod;">Sign Board</h3>
+                    <p> Fresh Taste, Every Day
+Delicious meals prepared with fresh ingredients, authentic flavors, and exceptional quality for dine-in and takeaway.
+
+
+
+Taste the Tradition
+Serving hygienic, flavorful, and freshly cooked food with quick service and affordable prices.
+
+
+
+Delicious Food, Fast Service
+Enjoy a wide variety of mouthwatering dishes made with quality ingredients and served with care.
+
+
+
+Your Favorite Food Destination
+Experience authentic taste, warm hospitality, and convenient takeaway services for every occasion.
+
+
+
+Fresh • Tasty • Hygienic
+From traditional recipes to modern favorites, we bring you delicious food that satisfies every craving.</p>
+                    <button class="btn view-details-btn">View Details</button>
+                </div>
+            </div>
+            <div class="project-card show" data-category="social">
+                <div class="project-img-placeholder">
+                    <img src="efftronics images/PNG/smart-signaling9.png" alt="Social Media Post">
+                </div>
+                <div class="project-info">
+                    <div class="project-tools">In Design</div>
+                    <h3 style="color: darkgoldenrod;">Broucher</h3>
+                    <p> 1. Enterprise Resource Planning (ERP)
+Manage finance, inventory, procurement, and production in one integrated system.
+
+2. Order Management System
+Automate order processing, tracking, and inventory management.
+
+3. Cash Flow
+Monitor cash inflow, outflow, and financial forecasting.
+
+4. R&D Project Planner
+Plan, track, and manage research and development projects efficiently.
+
+5. Time Attendance Management System
+Track employee attendance, shifts, leave, and working hours.
+
+6. Customer Relationship Management (CRM)
+Manage customer interactions, sales leads, and business relationships effectively.</p>
+                    <button class="btn view-details-btn">View Details</button>
+                </div>
+            </div>
+
+            <div class="project-card show" data-category="print">
+                <div class="project-img-placeholder">
+                    <img src="Sign Board images/AIM CURE poll.png" alt="Business Sign Board">
+                </div>
+                <div class="project-info">
+                    <div class="project-tools">Corel Draw</div>
+                    <h3 style="color: darkgoldenrod;">Sign Board</h3>
+                    <p> AIM CURE Hospital is committed to providing high-quality healthcare with compassion and excellence. We offer advanced medical care, accurate diagnosis, and personalized treatment to ensure the well-being of every patient.</p>
+                    <button class="btn view-details-btn">View Details</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="lightbox" id="imageLightbox">
+        <div class="lightbox-content">
+            <span class="lightbox-close" id="imageLightboxClose">&times;</span>
+            <img id="lightboxImg" src="" alt="Full View">
+        </div>
+    </div>
+
+    <div class="lightbox" id="textLightbox">
+        <div class="text-popup-box">
+            <span class="lightbox-close" id="textLightboxClose">&times;</span>
+            <h2 id="lightboxTitle" style="margin-bottom: 1rem; color: #00dfa2; font-size: 1.8rem;">Project Title</h2>
+            <p id="lightboxDesc" style="color: #fff; line-height: 1.6; font-size: 1rem;">Project Description</p>
+        </div>
+    </div>
+
+    <footer style="text-align: center; padding: 2rem; color: #a0aec0;"><p>&copy; 2026 Revathi Ganta.</p></footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // === మొబైల్ మెనూ రెస్పాన్సివ్ లాజిక్ ===
+            const mobileMenu = document.getElementById('mobile-menu');
+            const navLinks = document.getElementById('nav-links');
+
+            mobileMenu.addEventListener('click', () => {
+                navLinks.classList.toggle('active');   
+                mobileMenu.classList.toggle('open');   
+            });
+
+            // === ఫిల్టర్ ట్యాబ్స్ లాజిక్ ===
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const projectCards = document.querySelectorAll('.project-card');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    const filterValue = button.getAttribute('data-filter');
+                    
+                    projectCards.forEach(card => {
+                        const cardCategory = card.getAttribute('data-category');
+                        if (filterValue === 'all' || filterValue === cardCategory) {
+                            card.classList.add('show');
+                        } else {
+                            card.classList.remove('show');
+                        }
+                    });
+                });
+            });
+
+            // === ఇమేజ్ మరియు టెక్స్ట్ విడివిడి పాప్-అప్ లాజిక్ ===
+            const imageLightbox = document.getElementById('imageLightbox');
+            const lightboxImg = document.getElementById('lightboxImg');
+            
+            const textLightbox = document.getElementById('textLightbox');
+            const lightboxTitle = document.getElementById('lightboxTitle');
+            const lightboxDesc = document.getElementById('lightboxDesc');
+
+            projectCards.forEach(card => {
+                const img = card.querySelector('.project-img-placeholder img');
+                const btn = card.querySelector('.view-details-btn');
+                const titleText = card.querySelector('h3').textContent;
+                const descText = card.querySelector('.project-info p').textContent;
+
+                if(img) {
+                    img.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        lightboxImg.src = img.src;
+                        imageLightbox.classList.add('active');
+                    });
+                }
+
+                if(btn) {
+                    btn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        lightboxTitle.textContent = titleText;
+                        lightboxDesc.textContent = descText;
+                        textLightbox.classList.add('active');
+                    });
+                }
+            });
+
+            document.getElementById('imageLightboxClose').addEventListener('click', () => imageLightbox.classList.remove('active'));
+            document.getElementById('textLightboxClose').addEventListener('click', () => textLightbox.classList.remove('active'));
+
+            imageLightbox.addEventListener('click', (e) => { if (e.target === imageLightbox) imageLightbox.classList.remove('active'); });
+            textLightbox.addEventListener('click', (e) => { if (e.target === textLightbox) textLightbox.classList.remove('active'); });
+        });
+    </script>
+</body>
+</html>
