@@ -731,8 +731,8 @@ footer {
         width: 100%;
     }
 }
-/* ఫోన్ రిసీవర్ ఐకాన్‌ను సాధారణ ఫోన్ లాగా పైకి తిప్పడానికి */
-.fa-phone {
-    display: inline-block !important;
-    transform: rotate(90deg) !important;
+/* ఈ కోడ్ ఎక్కడైనా ఉంటే తీసేయండి */
+.fa-phone, .fa-phone-alt {
+    transform: rotate(90deg);
+    display: inline-block;
 }
