@@ -9,38 +9,41 @@
 </head>
 <body>
     <nav class="navbar">
-    <div class="container">
-        <a href="index.html" class="logo">Revathi<span>.G</span></a>
-        <ul class="nav-links">
-            <li><a href="index.html" id="nav-home">Home</a></li>
-            <li><a href="About.html" id="nav-about">About</a></li>
-            <li><a href="Skills.html" id="nav-skills">Skills</a></li>
-            <li><a href="Experience.html" id="nav-experience">Experience</a></li>
-            <li><a href="Projects.html" id="nav-projects">Projects</a></li>
-            <li><a href="Contact.html" id="nav-contact">Contact</a></li>
-        </ul>
-        <div class="menu-toggle" id="mobile-menu">
-            <span></span>
-            <span></span>
-            <span></span>
+        <div class="container">
+            <a href="index.html" class="logo">Revathi<span>.G</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html" id="nav-home">Home</a></li>
+                <li><a href="About.html" id="nav-about">About</a></li>
+                <li><a href="Skills.html" id="nav-skills">Skills</a></li>
+                <li><a href="Experience.html" id="nav-experience">Experience</a></li>
+                <li><a href="Projects.html" id="nav-projects">Projects</a></li>
+                <li><a href="Contact.html" id="nav-contact">Contact</a></li>
+            </ul>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
     <main class="container">
         <h2 class="section-title">Get In <span>Touch</span></h2>
         <div class="contact-grid">
             <div class="contact-details">
                 <h3>Let's Collaborate</h3>
-                <p style="color: var(--text-muted);">Available for freelance client contracts and full-time creative corporate design roles.</p>
+                <p style="color: var(--text-muted); margin-bottom: 20px;">Available for freelance client contracts and full-time creative corporate design roles.</p>
                 
+                <!-- 1. Call Directly Option (లింక్ యాక్టివేట్ చేయబడింది) -->
                 <div class="contact-method">
                     <i class="fas fa-phone-alt"></i>
                     <div>
                         <h4>Call Directly</h4>
-                        <p>+91 9441925126</p>
+                        <p><a href="tel:+919441925126" style="color: inherit; text-decoration: none;">+91 9441925126</a></p>
                     </div>
                 </div>
+
+                <!-- 2. Location Base Option -->
                 <div class="contact-method">
                     <i class="fas fa-map-marker-alt"></i>
                     <div>
@@ -49,6 +52,7 @@
                     </div>
                 </div>
 
+                <!-- Social Media Links -->
                 <div class="social-links">
                     <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
                     <a href="https://behance.net" target="_blank"><i class="fab fa-behance"></i></a>
@@ -56,11 +60,13 @@
                     <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
                 </div>
 
-                <a href="https://wa.me/919441880126" class="btn btn-primary" style="background: #25D366; box-shadow: 0 4px 15px rgba(37,211,102,0.4); justify-content: center;" target="_blank">
+                <!-- WhatsApp Button (పర్‌ఫెక్ట్ క్లికబుల్ లింక్) -->
+                <a href="https://wa.me/919441925126" class="btn btn-primary" style="background: #25D366; box-shadow: 0 4px 15px rgba(37,211,102,0.4); display: inline-flex; justify-content: center; align-items: center; gap: 10px; width: 100%; max-width: 300px; text-decoration: none;" target="_blank">
                     <i class="fab fa-whatsapp"></i> Chat via WhatsApp
                 </a>
             </div>
 
+            <!-- Contact Form Section -->
             <form class="contact-form" id="portfolioForm">
                 <div class="form-group">
                     <input type="text" id="formName" placeholder="Your Name" required>
@@ -74,7 +80,7 @@
                 <div class="form-group">
                     <textarea id="formMessage" rows="6" placeholder="Project Description Details..." required></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">Send Message <i class="fas fa-paper-plane"></i></button>
+                <button type="submit" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 10px; justify-content: center;">Send Message <i class="fas fa-paper-plane"></i></button>
             </form>
         </div>
     </main>
