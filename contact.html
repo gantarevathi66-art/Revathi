@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Recruiter Hub | Revathi Ganta</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">Revathi<span>.G</span></a>
+            <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="skills.html">Skills</a></li>
+    <li><a href="experience.html">Experience</a></li>
+    <li><a href="projects.html">Projects</a></li>
+
+    <!-- కొత్తది -->
+    <li><a href="videos.html">Videos</a></li>
+
+    <li><a href="contact.html">Contact</a></li>
+</ul>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h2 class="section-title">Get In <span>Touch</span></h2>
+        <div class="contact-grid">
+            <div class="contact-details">
+                <h3>Let's Collaborate</h3>
+                <p style="color: var(--text-muted); margin-bottom: 20px;">Available for freelance client contracts and full-time creative corporate design roles.</p>
+                
+                <!-- 1. Call Directly Option (లింక్ యాక్టివేట్ చేయబడింది) -->
+                <div class="contact-method">
+                <i class="ri-phone-fill"></i>
+                    <div>
+                        <h4>Call Directly</h4>
+                        <p><a href="tel:+919441925126" style="color: inherit; text-decoration: none;">+91 9441925126</a></p>
+                    </div>
+                </div>
+
+                <!-- 2. Location Base Option -->
+                <div class="contact-method">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <h4>Location Base</h4>
+                        <p>Andhra Pradesh, India</p>
+                    </div>
+                </div>
+
+                <!-- Social Media Links -->
+                <div class="social-links">
+                    <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://behance.net" target="_blank"><i class="fab fa-behance"></i></a>
+                    <a href="https://github.com" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+                </div>
+
+                <!-- WhatsApp Button (పర్‌ఫెక్ట్ క్లికబుల్ లింక్) -->
+                <a href="https://wa.me/919441925126" class="btn btn-primary" style="background: #25D366; box-shadow: 0 4px 15px rgba(37,211,102,0.4); display: inline-flex; justify-content: center; align-items: center; gap: 10px; width: 100%; max-width: 300px; text-decoration: none;" target="_blank">
+                    <i class="fab fa-whatsapp"></i> Chat via WhatsApp
+                </a>
+            </div>
+
+            <!-- Contact Form Section -->
+            <!-- పాత <form> లైన్ తీసేసి, మీ ఫారమ్‌స్ప్రీ లింక్‌తో ఇలా మార్చండి -->
+<form action="https://formspree.io/f/mvzjyezk" method="POST" style="max-width: 600px; width: 100%; display: flex; flex-direction: column; gap: 20px;">
+    
+    <!-- 1. Name Input Box -->
+    <div class="input-box" style="width: 100%;">
+        <input type="text" name="name" placeholder="Your Name" required 
+               style="width: 100%; padding: 15px; background: #112240; border: 1px solid #233554; color: #fff; font-size: 16px; border-radius: 8px; outline: none;">
+    </div>
+
+    <!-- 2. Email Input Box -->
+    <div class="input-box" style="width: 100%;">
+        <input type="email" name="email" placeholder="Your Email Address" required 
+               style="width: 100%; padding: 15px; background: #112240; border: 1px solid #233554; color: #fff; font-size: 16px; border-radius: 8px; outline: none;">
+    </div>
+
+    <!-- 3. Subject Input Box -->
+    <div class="input-box" style="width: 100%;">
+        <input type="text" name="subject" placeholder="Subject Topic" required 
+               style="width: 100%; padding: 15px; background: #112240; border: 1px solid #233554; color: #fff; font-size: 16px; border-radius: 8px; outline: none;">
+    </div>
+
+    <!-- 4. Message Textarea -->
+    <div class="input-box" style="width: 100%;">
+        <textarea name="message" placeholder="Project Description Details..." required 
+                  style="width: 100%; padding: 15px; background: #112240; border: 1px solid #233554; color: #fff; font-size: 16px; border-radius: 8px; height: 150px; resize: none; outline: none;"></textarea>
+    </div>
+    
+    <!-- 5. Send Message Button -->
+    <button type="submit" class="btn" style="align-self: flex-start; cursor: pointer;">
+        Send Message <i class="fas fa-paper-plane"></i>
+    </button>
+</form>
+        </div>
+    </main>
+
+    <footer><p>&copy; 2026 Revathi Ganta.</p></footer>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const mobileMenu = document.getElementById('mobile-menu');
+    const navLinks = document.querySelector('.nav-links');
+
+    if (mobileMenu && navLinks) {
+        mobileMenu.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+    }
+});
+</script>
+</body>
+</html>

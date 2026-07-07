@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Videos | Revathi Ganta</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Responsive Navbar -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">Revathi.<span>G</span></a>
+
+        <!-- 3 గీతల మొబైల్ మెనూ బటన్ -->
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="videos.html" class="active">Videos</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Video Portfolio Section -->
+    <section class="container">
+        <h2 class="section-title">
+            My <span>Video Portfolio</span>
+        </h2>
+
+        <div class="video-grid">
+            <!-- Video 1 -->
+            <div class="video-card">
+                <video controls>
+                    <source src="videos/Premalo - Video Song _ Court _ Priyadarshi, Harsh Roshan, Sridevi _ Vijai Bulganin _ Ram Jagadeesh.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <h3>Wedding Invitation</h3>
+                <p>Adobe After Effects</p>
+            </div>
+
+           <!-- Video 2 -->
+            <div class="video-card">
+                <video controls>
+                    <source src="videos/WhatsApp Video1.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <h3>Logo Animation</h3>
+                <p>After Effects</p>
+            </div>
+
+            <!-- Video 3 -->
+            <div class="video-card">
+                <video controls>
+                    <source src="videos/Vibe Undi - Lyrical _ Mirai _ Teja Sajja, Ritika Nayak _ Karthik Gattamneni _Gowra Hari_Armaan Malik.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <h3>Logo Animation</h3>
+                <p>After Effects</p>
+            </div>
+
+            <!-- Video 4 -->
+            <div class="video-card">
+                <video controls>
+                    <source src="videos/WhatsApp Video2.mp4"video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <h3>Social Media Reel</h3>
+                <p>Premiere Pro</p>
+            </div>
+        </div> <!-- ఇక్కడ ఇందాక వీడియో గ్రిడ్ క్లోజింగ్ డివ్ మిస్ అయింది, అది యాడ్ చేసాను -->
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 Revathi Ganta</p>
+    </footer>
+
+    <!-- Safe JavaScript for Mobile Menu -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        if (mobileMenu && navLinks) {
+            mobileMenu.addEventListener('click', () => {
+                mobileMenu.classList.toggle('active');
+                navLinks.classList.toggle('active');
+            });
+
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.remove('active');
+                    navLinks.classList.remove('active');
+                });
+            });
+        }
+    });
+    </script>
+</body>
+</html>
