@@ -656,7 +656,7 @@ footer {
    MOBILE & RESPONSIVE NAVIGATION STYLES
    ========================================================================== */
 @media (max-width: 768px) {
-    /* మొబైల్‌లో 3 గీతల బటన్ కనిపించడానికి */
+    /* 1. మొబైల్‌లో 3 గీతల బటన్ కనిపించడానికి */
     .menu-toggle {
         display: flex; 
         flex-direction: column;
@@ -667,12 +667,12 @@ footer {
         z-index: 1001; /* మెనూ కంటే పైనే ఉండాలి */
     }
 
-    /* 3 గీతల యొక్క లైన్స్ స్టైలింగ్ (ఇవి మీ కోడ్‌లో ఆల్రెడీ ఉంటే మార్చక్కర్లేదు) */
+    /* 3 గీతల యొక్క లైన్స్ స్టైలింగ్ */
     .menu-toggle span {
         display: block;
         height: 3px;
         width: 100%;
-        background-color: #ffffff; /* మీ నచ్చిన కలర్ ఇచ్చుకోండి */
+        background-color: #ffffff; 
         border-radius: 3px;
         transition: all 0.3s ease;
     }
@@ -684,7 +684,7 @@ footer {
         left: -100%; /* మొదట ఎడమ వైపున దాగి ఉంటుంది */
         width: 100%;
         height: calc(100vh - 80px);
-        background-color: #0F172A; /* మీ థీమ్ కలర్ */
+        background-color: #0F172A; 
         flex-direction: column;
         align-items: center;
         padding-top: 2rem;
@@ -697,10 +697,7 @@ footer {
         left: 0;
     }
 
-    /* --------------------------------------------------------------------------
-       HAMBURGER TO 'X' ANIMATION SYSTEM
-       (మెనూ ఓపెన్ అయినప్పుడు 3 గీతలు క్లోజ్ మార్క్ లా మారడానికి క్రింది కోడ్ పనిచేస్తుంది)
-       -------------------------------------------------------------------------- */
+    /* HAMBURGER TO 'X' ANIMATION SYSTEM */
     .menu-toggle.active span:nth-child(1) {
         transform: translateY(9px) rotate(45deg);
     }
@@ -712,5 +709,25 @@ footer {
 
     .menu-toggle.active span:nth-child(3) {
         transform: translateY(-9px) rotate(-45deg);
+    }
+
+    /* --------------------------------------------------------------------------
+       2. CONTACT PAGE RESPONSIVE & ALIGNMENT FIX
+       (ఐకాన్స్, కంటెంట్ ఆపోజిట్ అవ్వకుండా ఒకదాని కింద ఒకటి సరిగ్గా రావడానికి)
+       -------------------------------------------------------------------------- */
+    .contact-container, .contact-wrapper, .grid-2 {
+        display: flex !important;
+        flex-direction: column !important; /* నిలువుగా మారుస్తుంది */
+        gap: 2.5rem;
+    }
+
+    /* ప్రతి కాంటాక్ట్ ఐటమ్ (Icon + Text) బాక్స్ స్టైలింగ్ */
+    .contact-item, .info-item {
+        display: flex !important;
+        flex-direction: row !important; /* ఐకాన్ ఎడమ వైపు, టెక్స్ట్ కుడి వైపు సమానంగా ఉండడానికి */
+        align-items: center !important;
+        text-align: left !important;
+        gap: 15px;
+        width: 100%;
     }
 }
