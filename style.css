@@ -655,6 +655,11 @@ footer {
 /* ==========================================================================
    MOBILE & RESPONSIVE NAVIGATION STYLES
    ========================================================================== */
+   /* మీ ఐకాన్ ఏ క్లాస్‌తో ఉన్నా సరే, దాన్ని ఫోన్ లాగా పైకి తిప్పేస్తుంది */
+.contact-method i, .fa-phone, .fa-phone-flip {
+    display: inline-block !important;
+    transform: rotate(135deg) !important;
+}
 @media (max-width: 768px) {
     /* 1. మొబైల్‌లో 3 గీతల బటన్ కనిపించడానికి */
     .menu-toggle {
